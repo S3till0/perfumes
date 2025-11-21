@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Pedidos - Perfumes Moreno</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/pedidos.css' %}">
+</head>
+<body>
+    <header class="header-categoria">
+        <div class="header-categoria-content">
+            <a href="{% url 'login2' %}" class="boton-regresar">
+                <i class="fas fa-arrow-left"></i> Volver a la Tienda
+            </a>
+            <div class="categoria-titulo">
+                <h1 class="titulo-seccion">Mis Pedidos</h1>
+            </div>
+            <div class="user-info">
+                <span class="username-display">
+                    <i class="fas fa-user-circle"></i>
+                    {{ user.username }}
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="pedidos-container">
+        <div class="pedidos-content">
+            <section class="pedido-detalle">
+                <h2 class="section-title">Detalles del Pedido</h2>
+                
+                <div class="pedido-info">
+                    <div class="info-item">
+                        <span class="info-label">Número de pedido:</span>
+                        <span class="info-value">PM-2024-001</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Fecha de compra:</span>
+                        <span class="info-value" id="fecha-compra">20 de Mayo, 2024</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Fecha estimada de entrega:</span>
+                        <span class="info-value" id="fecha-entrega">25 de Mayo, 2024</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Estado:</span>
+                        <span class="info-value estado enviado">Enviado</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Método de pago:</span>
+                        <span class="info-value">Tarjeta de crédito</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Dirección de envío:</span>
+                        <span class="info-value">Calle Falsa 123, Ciudad, País</span>
+                    </div>
+                </div>
+
+                <div class="productos-pedido">
+                    <h3 class="subtitle">Productos</h3>
+                    <div class="productos-lista" id="productos-lista">
+                        <!-- Los productos del pedido se cargarán aquí -->
+                    </div>
+                </div>
+
+                <div class="resumen-pedido">
+                    <h3 class="subtitle">Resumen del Pago</h3>
+                    <div class="resumen-linea">
+                        <span>Subtotal:</span>
+                        <span class="precio">$<span id="subtotal-pedido">0.00</span></span>
+                    </div>
+                    <div class="resumen-linea">
+                        <span>Envío:</span>
+                        <span class="precio-envio">Gratis</span>
+                    </div>
+                    <div class="resumen-linea descuento">
+                        <span>Descuento:</span>
+                        <span class="precio-descuento">-$<span id="descuento-pedido">0.00</span></span>
+                    </div>
+                    <div class="resumen-linea total">
+                        <strong>Total:</strong>
+                        <strong class="precio-total">$<span id="total-pedido">0.00</span></strong>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="{% static 'js/pedidos.js' %}"></script>
+</body>
+</html>

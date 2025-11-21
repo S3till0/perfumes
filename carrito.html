@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - Perfumes Moreno</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/carrito.css' %}">
+</head>
+<body>
+    <header class="header-categoria">
+        <div class="header-categoria-content">
+            <a href="{% url 'login2' %}" class="boton-regresar">
+                <i class="fas fa-arrow-left"></i> Seguir Comprando
+            </a>
+            <div class="categoria-titulo">
+                <h1 class="titulo-seccion">Mi Carrito</h1>
+            </div>
+            <div class="user-info">
+                <span class="username-display">
+                    <i class="fas fa-user-circle"></i>
+                    {{ user.username }}
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="carrito-container">
+        <div class="carrito-content">
+            <!-- Sección de productos del carrito -->
+            <section class="carrito-items-section">
+                <h2 class="section-title">Productos en tu Carrito</h2>
+                
+                <div class="carrito-items" id="carrito-items">
+                    <!-- Los productos se cargarán dinámicamente aquí -->
+                    <div class="carrito-vacio" id="carrito-vacio">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Tu carrito está vacío</h3>
+                        <p>Agrega algunos productos para continuar</p>
+                        <a href="{% url 'login2' %}" class="btn-seguir-comprando">
+                            <i class="fas fa-shopping-bag"></i>
+                            Explorar Productos
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resumen del pedido -->
+            <aside class="resumen-pedido">
+                <div class="resumen-card">
+                    <h3 class="resumen-title">
+                        <i class="fas fa-receipt"></i>
+                        Resumen del Pedido
+                    </h3>
+                    
+                    <div class="resumen-detalles">
+                        <div class="resumen-linea">
+                            <span>Subtotal:</span>
+                            <span class="precio">$<span id="subtotal">0.00</span></span>
+                        </div>
+                        <div class="resumen-linea">
+                            <span>Envío:</span>
+                            <span class="envio-gratis">Gratis</span>
+                        </div>
+                        <div class="resumen-linea descuento">
+                            <span>Descuento:</span>
+                            <span class="precio-descuento">-$<span id="descuento">0.00</span></span>
+                        </div>
+                        <div class="resumen-linea total">
+                            <strong>Total:</strong>
+                            <strong class="precio-total">$<span id="total">0.00</span></strong>
+                        </div>
+                    </div>
+
+                    <!-- Cupón de descuento -->
+                    <div class="cupon-section">
+                        <div class="cupon-input-group">
+                            <input type="text" id="codigo-cupon" placeholder="Código de descuento" class="cupon-input">
+                            <button id="aplicar-cupon" class="btn-cupon">
+                                <i class="fas fa-tag"></i>
+                                Aplicar
+                            </button>
+                        </div>
+                        <div class="cupones-disponibles">
+                            <p class="cupon-info">Cupones disponibles: <strong>VERANO10</strong> (10% off)</p>
+                        </div>
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <div class="botones-accion">
+                        <a href="{% url 'pago' %}" class="btn-pagar" id="btn-proceder-pago">
+                            <i class="fas fa-lock"></i>
+                              Proceder al Pago
+                                 </a>
+                        <a href="{% url 'login2' %}" class="btn-seguir-comprando">
+                              <i class="fas fa-arrow-left"></i>
+                             Seguir Comprando
+                                </a>
+                    </div>
+
+                    <!-- Información de seguridad -->
+                    <div class="info-seguridad">
+                        <div class="seguridad-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Compra 100% segura</span>
+                        </div>
+                        <div class="seguridad-item">
+                            <i class="fas fa-truck"></i>
+                            <span>Envío gratis en compras mayores a $300</span>
+                        </div>
+                        <div class="seguridad-item">
+                            <i class="fas fa-undo"></i>
+                            <span>Devoluciones gratis en 30 días</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Modal de confirmación de eliminación -->
+    <div class="modal-confirmacion" id="modal-confirmacion">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Eliminar Producto</h3>
+                <span class="cerrar-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que quieres eliminar este producto de tu carrito?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancelar">Cancelar</button>
+                <button class="btn-confirmar">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificaciones -->
+    <div class="notificacion" id="notificacion"></div>
+
+    <script src="{% static 'js/carrito.js' %}"></script>
+</body>
+</html>

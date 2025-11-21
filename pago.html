@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra - Perfumes Moreno</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/pago.css' %}">
+</head>
+<body>
+    <header class="header-categoria">
+        <div class="header-categoria-content">
+            <a href="{% url 'carrito' %}" class="boton-regresar">
+                <i class="fas fa-arrow-left"></i> Volver al Carrito
+            </a>
+            <div class="categoria-titulo">
+                <h1 class="titulo-seccion">Finalizar Compra</h1>
+            </div>
+            <div class="user-info">
+                <span class="username-display">
+                    <i class="fas fa-user-circle"></i>
+                    {{ user.username }}
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="pago-container">
+        <div class="pago-content">
+            <!-- Sección de formularios -->
+            <section class="formularios-pago">
+                <!-- Información de envío -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-truck"></i>
+                        Información de Envío
+                    </h2>
+                    <form id="form-envio">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre">Nombre completo *</label>
+                                <input type="text" id="nombre" name="nombre" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="direccion">Dirección *</label>
+                                <input type="text" id="direccion" name="direccion" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ciudad">Ciudad *</label>
+                                <input type="text" id="ciudad" name="ciudad" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="codigo-postal">Código Postal *</label>
+                                <input type="text" id="codigo-postal" name="codigo-postal" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pais">País *</label>
+                                <select id="pais" name="pais" required>
+                                    <option value="">Seleccionar país</option>
+                                    <option value="ES">España</option>
+                                    <option value="MX">México</option>
+                                    <option value="AR">Argentina</option>
+                                    <option value="CO">Colombia</option>
+                                    <option value="CL">Chile</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Teléfono *</label>
+                                <input type="tel" id="telefono" name="telefono" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="guardar-direccion">
+                                <label for="guardar-direccion">Guardar esta dirección para futuras compras</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Método de pago -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-credit-card"></i>
+                        Método de Pago
+                    </h2>
+                    <form id="form-pago">
+                        <div class="metodos-pago">
+                            <div class="metodo-pago active" data-metodo="tarjeta">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Tarjeta de Crédito/Débito</span>
+                            </div>
+                            <div class="metodo-pago" data-metodo="paypal">
+                                <i class="fab fa-paypal"></i>
+                                <span>PayPal</span>
+                            </div>
+                        </div>
+
+                        <!-- Formulario de tarjeta -->
+                        <div class="form-pago-tarjeta" id="form-tarjeta">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="numero-tarjeta">Número de tarjeta *</label>
+                                    <input type="text" id="numero-tarjeta" name="numero-tarjeta" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                    <div class="tarjetas-aceptadas">
+                                        <i class="fab fa-cc-visa"></i>
+                                        <i class="fab fa-cc-mastercard"></i>
+                                        <i class="fab fa-cc-amex"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nombre-tarjeta">Nombre en la tarjeta *</label>
+                                    <input type="text" id="nombre-tarjeta" name="nombre-tarjeta" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="fecha-expiracion">Fecha de expiración *</label>
+                                    <input type="text" id="fecha-expiracion" name="fecha-expiracion" placeholder="MM/AA" maxlength="5" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV *</label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" required>
+                                    <div class="cvv-info">
+                                        <i class="fas fa-question-circle"></i>
+                                        <div class="cvv-tooltip">
+                                            Los 3 dígitos en el reverso de tu tarjeta
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Formulario PayPal (oculto inicialmente) -->
+                        <div class="form-pago-paypal" id="form-paypal" style="display: none;">
+                            <div class="paypal-info">
+                                <p>Serás redirigido a PayPal para completar tu pago de forma segura.</p>
+                                <button type="button" class="btn-paypal">
+                                    <i class="fab fa-paypal"></i>
+                                    Pagar con PayPal
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Resumen del pedido -->
+            <aside class="resumen-pedido">
+                <div class="resumen-card">
+                    <h3 class="resumen-title">
+                        <i class="fas fa-receipt"></i>
+                        Resumen del Pedido
+                    </h3>
+                    
+                    <!-- Productos del carrito -->
+                    <div class="productos-resumen" id="productos-resumen">
+                        <!-- Los productos se cargarán dinámicamente aquí -->
+                    </div>
+
+                    <div class="resumen-detalles">
+                        <div class="resumen-linea">
+                            <span>Subtotal:</span>
+                            <span class="precio">$<span id="subtotal">0.00</span></span>
+                        </div>
+                        <div class="resumen-linea">
+                            <span>Envío:</span>
+                            <span class="envio-gratis">Gratis</span>
+                        </div>
+                        <div class="resumen-linea descuento">
+                            <span>Descuento:</span>
+                            <span class="precio-descuento">-$<span id="descuento">0.00</span></span>
+                        </div>
+                        <div class="resumen-linea total">
+                            <strong>Total:</strong>
+                            <strong class="precio-total">$<span id="total">0.00</span></strong>
+                        </div>
+                    </div>
+
+                    <!-- Información de seguridad -->
+                    <div class="info-seguridad">
+                        <div class="seguridad-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Pago 100% seguro con encriptación SSL</span>
+                        </div>
+                        <div class="seguridad-item">
+                            <i class="fas fa-lock"></i>
+                            <span>No almacenamos los datos de tu tarjeta</span>
+                        </div>
+                    </div>
+
+                    <!-- Botón de confirmación -->
+                    <button id="btn-confirmar-pago" class="btn-confirmar-pago">
+                        <i class="fas fa-lock"></i>
+                        Confirmar y Pagar
+                    </button>
+
+                    <p class="terminos-texto">
+                        Al confirmar tu pedido, aceptas nuestros 
+                        <a href="#" class="link-terminos">Términos y Condiciones</a> 
+                        y 
+                        <a href="#" class="link-terminos">Política de Privacidad</a>
+                    </p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Modal de confirmación -->
+    <div class="modal-confirmacion" id="modal-confirmacion">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>¡Pedido Confirmado!</h3>
+                <span class="cerrar-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="confirmacion-icono">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h4>Gracias por tu compra, <span id="nombre-cliente"></span></h4>
+                <p>Tu pedido ha sido procesado exitosamente.</p>
+                <div class="detalles-pedido">
+                    <p><strong>Número de pedido:</strong> <span id="numero-pedido">PM-2024-001</span></p>
+                    <p><strong>Fecha de entrega estimada:</strong> <span id="fecha-entrega">5-7 días hábiles</span></p>
+                    <p><strong>Total pagado:</strong> $<span id="total-pagado">0.00</span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'login2' %}" class="btn-seguir-comprando">
+                    <i class="fas fa-shopping-bag"></i>
+                    Seguir Comprando
+                </a>
+                <a href="{% url 'pedidos' %}" class="btn-ver-pedido">
+                    <i class="fas fa-eye"></i>
+                    Ver Detalles del Pedido
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificaciones -->
+    <div class="notificacion" id="notificacion"></div>
+
+    <script src="{% static 'js/pago.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Sistema</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            border-bottom: 3px solid #667eea;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .login-btn,
+        .register-btn,
+        .recovery-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .login-btn:hover,
+        .register-btn:hover,
+        .recovery-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .login-btn:active,
+        .register-btn:active,
+        .recovery-btn:active {
+            transform: translateY(0);
+        }
+
+        .alert {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .links a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-box {
+                padding: 30px 20px;
+            }
+            
+            .login-container {
+                padding: 10px;
+            }
+        }
+
+        .alert {
+            transition: opacity 0.2s ease;
+        }
+
+        /* Estilos para el botón regresar */
+        .btn-regresar-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-regresar {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-regresar:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #7f8c8d 0%, #95a5a6 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="tabs">
+                <div class="tab active" data-tab="login">Iniciar Sesión</div>
+                <div class="tab" data-tab="register">Registrarse</div>
+            </div>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <!-- MOSTRAR SOLO MENSAJES DE ERROR, NO DE ÉXITO -->
+                    {% if message.tags == 'error' %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            
+            <!-- Pestaña de Login -->
+            <div class="tab-content active" id="login-tab">
+                <h2>Iniciar Sesión</h2>
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    
+                    <div class="input-group">
+                        <label for="username">Usuario:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">Ingresar</button>
+                </form>
+                
+                <div class="forgot-password">
+                    <a href="#" id="showRecovery">¿Olvidaste tu contraseña?</a>
+                </div>
+                
+                <div class="links">
+                    <a href="#" id="showRegister">¿Eres nuevo? Regístrate aquí</a>
+                </div>
+
+                <!-- BOTÓN REGRESAR AGREGADO -->
+                <div class="btn-regresar-container">
+                    <a href="{% url 'index' %}" class="btn-regresar">
+                        <i class="fas fa-arrow-left"></i>
+                        Regresar al Inicio
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Pestaña de Registro -->
+            <div class="tab-content" id="register-tab">
+                <h2>Crear Cuenta</h2>
+                <form method="POST" action="{% url 'register' %}">
+                    {% csrf_token %}
+                    
+                    <div class="input-group">
+                        <label for="reg_username">Usuario:</label>
+                        <input type="text" id="reg_username" name="username" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="reg_email">Correo electrónico:</label>
+                        <input type="email" id="reg_email" name="email" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="reg_password">Contraseña:</label>
+                        <input type="password" id="reg_password" name="password" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="reg_password_confirm">Confirmar contraseña:</label>
+                        <input type="password" id="reg_password_confirm" name="password_confirm" required>
+                    </div>
+                    
+                    <button type="submit" class="register-btn">Registrarse</button>
+                </form>
+                
+                <div class="links">
+                    <a href="#" id="showLogin">¿Ya tienes cuenta? Inicia sesión aquí</a>
+                </div>
+
+                <!-- BOTÓN REGRESAR AGREGADO -->
+                <div class="btn-regresar-container">
+                    <a href="{% url 'index' %}" class="btn-regresar">
+                        <i class="fas fa-arrow-left"></i>
+                        Regresar al Inicio
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Pestaña de Recuperación de Contraseña -->
+            <div class="tab-content" id="recovery-tab">
+                <h2>Recuperar Contraseña</h2>
+                <form method="POST" action="{% url 'password_recovery' %}">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <label for="recovery_email">Correo electrónico:</label>
+                        <input type="email" id="recovery_email" name="email" required>
+                    </div>
+                    
+                    <button type="submit" class="recovery-btn">Enviar enlace de recuperación</button>
+                </form>
+                
+                <div class="links">
+                    <a href="#" id="showLoginFromRecovery">Volver al inicio de sesión</a>
+                </div>
+
+                <!-- BOTÓN REGRESAR AGREGADO -->
+                <div class="btn-regresar-container">
+                    <a href="{% url 'index' %}" class="btn-regresar">
+                        <i class="fas fa-arrow-left"></i>
+                        Regresar al Inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Funcionalidad de pestañas
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remover clase activa de todas las pestañas y contenidos
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(tc => tc.classList.remove('active'));
+                    
+                    // Agregar clase activa a la pestaña y contenido seleccionados
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+            
+            // Enlaces para cambiar entre pestañas
+            document.getElementById('showRegister').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('.tab[data-tab="register"]').click();
+            });
+            
+            document.getElementById('showLogin').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('.tab[data-tab="login"]').click();
+            });
+            
+            document.getElementById('showRecovery').addEventListener('click', function(e) {
+                e.preventDefault();
+                // Remover clase activa de todas las pestañas y contenidos
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(tc => tc.classList.remove('active'));
+                
+                // Activar la pestaña de recuperación
+                document.getElementById('recovery-tab').classList.add('active');
+            });
+            
+            document.getElementById('showLoginFromRecovery').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector('.tab[data-tab="login"]').click();
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ocultar mensajes automáticamente después de 5 segundos
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.transition = 'opacity 0.5s ease';
+                    alert.style.opacity = '0';
+                    setTimeout(() => {
+                        alert.remove();
+                    }, 500);
+                }, 5000);
+            });
+
+            // También ocultar mensajes al cambiar de pestaña
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const activeAlerts = document.querySelectorAll('.alert');
+                    activeAlerts.forEach(alert => {
+                        alert.style.transition = 'opacity 0.3s ease';
+                        alert.style.opacity = '0';
+                        setTimeout(() => {
+                            alert.remove();
+                        }, 300);
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

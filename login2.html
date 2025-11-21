@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PERFUMES MORENO - Tienda de fragancias exclusivas</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/login2.css' %}">
+</head>
+<body>
+    <header class="hero-header">
+        <div class="header-overlay">
+            <div class="header-content">
+                <div class="logo-container">
+                    <h1 class="logo">
+                        <span class="logo-text">PERFUMES MORENO</span>
+                    </h1>
+                    <p class="slogan">Fragancias de calidad</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-home">
+        <!-- Sección del título y botón -->
+        <section class="seccion-titulo">
+            <div class="container">
+                <h2 class="section-title">Nuestras Categorías</h2>
+                <div class="boton-registro-container">
+                    <!-- Usuario autenticado: mostrar nombre y botón de cerrar sesión -->
+                    <div class="user-info">
+                        <span class="username-display">
+                            <i class="fas fa-user-circle"></i>
+                            Bienvenido, {{ user.username }}
+                        </span>
+                        <div class="user-actions">
+                            <a href="{% url 'carrito' %}" class="btn-carrito">
+                                <i class="fas fa-shopping-cart"></i>
+                                Carrito
+                                <span class="contador-carrito">0</span>
+                            </a>
+                            <a href="{% url 'pedidos' %}" class="btn-pedidos">
+                                <i class="fas fa-box"></i>
+                                Mis Pedidos
+                            </a>
+                            <a href="{% url 'logout' %}" class="btn-cerrar-sesion">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Cerrar Sesión
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de categorías -->
+        <section class="categorias" id="colecciones">
+            <div class="categorias-grid">
+                <a href="{% url 'caballero2' %}" class="categoria-card">
+                    <div class="categoria-img-container">
+                        <img src="{% static 'imagenes/003.jpg' %}" alt="Perfumes para Caballero" class="categoria-img">
+                    </div>
+                    <div class="categoria-overlay">
+                        <h3>Perfumes para Caballero</h3>
+                        <p>Fragancias masculinas de élite</p>
+                    </div>
+                </a>
+                <a href="{% url 'dama2' %}" class="categoria-card">
+                    <div class="categoria-img-container">
+                        <img src="{% static 'imagenes/002.jpg' %}" alt="Perfumes para Dama" class="categoria-img">
+                    </div>
+                    <div class="categoria-overlay">
+                        <h3>Perfumes para Dama</h3>
+                        <p>Esencias femeninas únicas</p>
+                    </div>
+                </a>
+                <a href="{% url 'ofertas2' %}" class="categoria-card">
+                    <div class="categoria-img-container">
+                        <img src="{% static 'imagenes/001.jpg' %}" alt="Ofertas Especiales" class="categoria-img">
+                    </div>
+                    <div class="categoria-overlay">
+                        <h3>Ofertas Especiales</h3>
+                        <p>Grandes descuentos en marcas premium</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfumes para Caballero - Perfumes Moreno</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/caballero.css' %}">
+    
+</head>
+<body>
+    <header class="header-categoria">
+        <div class="header-categoria-content">
+            <a href="{% url 'login2' %}" class="boton-regresar">
+                <i class="fas fa-arrow-left"></i> Regresar
+            </a>
+            <div class="categoria-titulo">
+                <h1 class="titulo-seccion">Perfumes para Caballero</h1>
+            </div>
+            <div class="carrito-icono">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="contador-carrito">0</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="catalogo">
+        <div class="filtros">
+            <div class="filtro-grupo">
+                <label for="ordenar">Ordenar por:</label>
+                <select id="ordenar">
+                    <option value=""></option>
+                    <option value="precio-asc">Precio: Menor a Mayor</option>
+                    <option value="precio-desc">Precio: Mayor a Menor</option>
+                    <option value="nombre">Nombre A-Z</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid-productos">
+            <!-- Producto 1 -->
+            <div class="producto" data-id="101">
+                <img src="{% static 'imagenes/101.jpg' %}" alt="YOU GREAT MAN" class="imagen-producto">
+                <div class="producto-info">
+                    <h3>YOU GREAT MAN</h3>
+                    <div class="producto-precio">
+                        <span class="precio">$70</span>
+                    </div>
+                    <!-- CAMBIO: Quitar clase boton-carrito y usar solo boton-login -->
+                    <a href="{% url 'login' %}" class="boton-login">
+                        <i class="fas fa-shopping-cart"></i> Añadir al carrito
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Producto 2 -->
+            <div class="producto" data-id="100">
+                <img src="{% static 'imagenes/100.jpg' %}" alt="PHANTOM" class="imagen-producto">
+                <div class="producto-info">
+                    <h3>PHANTOM</h3>
+                    <div class="producto-precio">
+                        <span class="precio">$140</span>
+                    </div>
+                    <!-- CAMBIO: Quitar clase boton-carrito y usar solo boton-login -->
+                    <a href="{% url 'login' %}" class="boton-login">
+                        <i class="fas fa-shopping-cart"></i> Añadir al carrito
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Producto 3 -->
+            <div class="producto" data-id="102">
+                <img src="{% static 'imagenes/102.jpg' %}" alt="Invictus" class="imagen-producto">
+                <div class="producto-info">
+                    <h3>Invictus</h3>
+                    <div class="producto-precio">
+                        <span class="precio">$90</span>
+                    </div>
+                    <!-- CAMBIO: Quitar clase boton-carrito y usar solo boton-login -->
+                    <a href="{% url 'login' %}" class="boton-login">
+                        <i class="fas fa-shopping-cart"></i> Añadir al carrito
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Producto 4 -->
+            <div class="producto" data-id="103">
+                <img src="{% static 'imagenes/103.jpg' %}" alt="VERSACE EROS FLAME" class="imagen-producto">
+                <div class="producto-info">
+                    <h3>VERSACE EROS FLAME</h3>
+                    <div class="producto-precio">
+                        <span class="precio">$120</span>
+                    </div>
+                    <!-- CAMBIO: Quitar clase boton-carrito y usar solo boton-login -->
+                    <a href="{% url 'login' %}" class="boton-login">
+                        <i class="fas fa-shopping-cart"></i> Añadir al carrito
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Producto 5 -->
+            <div class="producto" data-id="104">
+                <img src="{% static 'imagenes/104.jpg' %}" alt="VERSACE EROS" class="imagen-producto">
+                <div class="producto-info">
+                    <h3>VERSACE EROS</h3>
+                    <div class="producto-precio">
+                        <span class="precio">$120</span>
+                    </div>
+                    <!-- CAMBIO: Quitar clase boton-carrito y usar solo boton-login -->
+                    <a href="{% url 'login' %}" class="boton-login">
+                        <i class="fas fa-shopping-cart"></i> Añadir al carrito
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Producto 6 -->
+            <div class="producto" data-id="105">
+                <img src="{% static 'imagenes/105.jpg' %}" alt="PHANTOM INTENSE" class="imagen-producto">
+                <div class="producto-info">
+                    <h3>PHANTOM INTENSE</h3>
+                    <div class="producto-precio">
+                        <span class="precio">$120</span>
+                    </div>
+                    <!-- CAMBIO: Quitar clase boton-carrito y usar solo boton-login -->
+                    <a href="{% url 'login' %}" class="boton-login">
+                        <i class="fas fa-shopping-cart"></i> Añadir al carrito
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Producto 7 -->
+            <div class="producto" data-id="106">
+                <img src="{% static 'imagenes/106.jpg' %}" alt="PHANTOM" class="imagen-producto">
+                <div class="producto-info">
+                    <h3>PHANTOM</h3>
+                    <div class="producto-precio">
+                        <span class="precio">$90</span>
+                    </div>
+                    <!-- CAMBIO: Quitar clase boton-carrito y usar solo boton-login -->
+                    <a href="{% url 'login' %}" class="boton-login">
+                        <i class="fas fa-shopping-cart"></i> Añadir al carrito
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Producto 8 -->
+            <div class="producto" data-id="107">
+                <img src="{% static 'imagenes/107.jpg' %}" alt="ABSOLUTE INTENSE POUR HOMME" class="imagen-producto">
+                <div class="producto-info">
+                    <h3>ABSOLUTE INTENSE POUR HOMME</h3>
+                    <div class="producto-precio">
+                        <span class="precio">$70</span>
+                    </div>
+                    <!-- CAMBIO: Quitar clase boton-carrito y usar solo boton-login -->
+                    <a href="{% url 'login' %}" class="boton-login">
+                        <i class="fas fa-shopping-cart"></i> Añadir al carrito
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Producto 9 -->
+            <div class="producto" data-id="108">
+                <img src="{% static 'imagenes/108.jpg' %}" alt="LACOSTE L.12.12 BLAC EDITION" class="imagen-producto">
+                <div class="producto-info">
+                    <h3>LACOSTE L.12.12 BLAC EDITION</h3>
+                    <div class="producto-precio">
+                        <span class="precio">$60</span>
+                    </div>
+                    <!-- CAMBIO: Quitar clase boton-carrito y usar solo boton-login -->
+                    <a href="{% url 'login' %}" class="boton-login">
+                        <i class="fas fa-shopping-cart"></i> Añadir al carrito
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal del carrito -->
+    <div class="modal-carrito">
+        <div class="modal-contenido">
+            <span class="cerrar-modal">&times;</span>
+            <h2><i class="fas fa-shopping-cart"></i> Tu Carrito</h2>
+            <div class="carrito-items">
+                <!-- Los items del carrito aparecerán aquí -->
+            </div>
+            <div class="carrito-total">
+                <div class="total-subtotal">
+                    <span>Subtotal:</span>
+                    <span>$<span class="subtotal-precio">0</span></span>
+                </div>
+                <div class="total-envio">
+                    <span>Envío:</span>
+                    <span class="envio-precio">Gratis</span>
+                </div>
+                <div class="total-final">
+                    <strong>Total:</strong>
+                    <strong>$<span class="total-precio">0</span></strong>
+                </div>
+            </div>
+            <div class="botones-carrito">
+                <button class="boton-ocultar">
+                    <i class="fas fa-arrow-left"></i> Seguir comprando
+                </button>
+                <button class="boton-comprar">
+                    Finalizar Compra <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <div class="formulario-pago" style="display: none;">
+                <h3><i class="fas fa-credit-card"></i> Información de Pago</h3>
+                <form id="formularioTarjeta">
+                    <div class="campo-formulario">
+                        <label for="nombreTarjeta">Nombre en la Tarjeta:</label>
+                        <input type="text" id="nombreTarjeta" required>
+                    </div>
+                    <div class="campo-formulario">
+                        <label for="numeroTarjeta">Número de Tarjeta:</label>
+                        <input type="text" id="numeroTarjeta" placeholder="1234 5678 9012 3456" required>
+                    </div>
+                    <div class="campo-formulario-doble">
+                        <div>
+                            <label for="fechaExpiracion">Fecha Expiración:</label>
+                            <input type="text" id="fechaExpiracion" placeholder="MM/AA" required>
+                        </div>
+                        <div>
+                            <label for="cvv">CVV:</label>
+                            <input type="text" id="cvv" placeholder="123" required>
+                        </div>
+                    </div>
+                    <div class="botones-pago">
+                        <button type="button" class="boton-cancelar">
+                            <i class="fas fa-times"></i> Cancelar
+                        </button>
+                        <button type="submit" class="boton-pagar">
+                            <i class="fas fa-lock"></i> Pagar $<span class="total-a-pagar">0</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
